@@ -40,6 +40,8 @@ To make this possible, we use a OST as a base to work, in this case the OST is a
 
 (here goes nothing)
 
+As for benchmarks, right now "check if possible" function is working in O(N) time, which isn't bad nor good, I will make an appropiate benchmark when I reduce those times dynamically
+
 ## some scribble notes
 
 ![implementation.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/imagenes/notes.png)

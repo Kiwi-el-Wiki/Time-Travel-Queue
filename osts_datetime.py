@@ -787,7 +787,7 @@ class RBT_consistency:
                 return True
         return False
 
-    def check_if_possible(self, node): 
+    def check_if_possible(self, node): # TODO: optimize this function, shouldn't be an inorder traversal
         # returns if it's possible to delete the node
         curr_node = self.root        
         stack = []
@@ -900,6 +900,3 @@ class node_consistency:
         else:
             print("Error, prefix must be 1 or -1")
             return False
-    
-    def check_if_possible(self, node):
-        return self.tree.check_if_possible(node)
