@@ -15,9 +15,9 @@ In this implementation, we merge the implementation of Erik Demaine at https://y
 Disclaimer: this was made purely to have fun and isn't complete
 
 "Queue" is a Fully retroactive data structure that supports the following operations:
-- Insert an element at a given index.
-- Delete an element at a given index.
-- Get the element at a given index.
+- Insert an element at a given time.
+- Delete an element at a given time.
+- Get the element at a given time.
 - Get the size of the structure at a given time.
 - Get the size of the structure at the current time.
 - Undo a operation at a given time. (if it is possible) WIP
