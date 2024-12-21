@@ -4,15 +4,15 @@ The Time Travel problem in the context of data structures refers to the ability 
 
 Persistence looks like:
 
-![Persistence.](link)
+![Persistence.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/imagenes/persistent.png)
 
 Retroactive Data structures are like persistent data structures, but they allow operations to be performed that affect not only the current state of the structure, but also its history of operations. This means that we can add, remove, or modify operations that were performed in the past, and the structure will automatically update to reflect these changes.
 
-## current implementation
+## Current implementation (WIP)
 
 In this implementation, we merge the implementation of Erik Demaine at https://youtu.be/WqCWghETNDc?si=tRViaFba89L1pA3o and the implementation shown by Mitko Nikov at https://youtu.be/m2yRawZGYXk?feature=shared .
 
-Disclaimer: this was made purely to have fun, this isn't a production ready code, and it's not optimized.
+Disclaimer: this was made purely to have fun and isn't complete
 
 "Queue" is a Fully retroactive data structure that supports the following operations:
 - Insert an element at a given index.
@@ -22,7 +22,7 @@ Disclaimer: this was made purely to have fun, this isn't a production ready code
 - Get the size of the structure at the current time.
 - Undo a operation at a given time. (if it is possible) WIP
 
-![implementation.](link)
+![implementation.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/imagenes/curr_implementation.png)
 
 To make this possible, we use a OST as a base to work, in this case the OST is a RB Tree, but can be any tree, The OST is modified according to it's use:
 - adding, this OST only contains the operation of adding an element at a given index, stores index and value.
@@ -42,4 +42,4 @@ To make this possible, we use a OST as a base to work, in this case the OST is a
 
 ## some scribble notes
 
-![implementation.](link)
+![implementation.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/imagenes/notes.png)
