@@ -4,7 +4,7 @@ The Time Travel problem in the context of data structures refers to the ability 
 
 Persistence looks like:
 
-![Persistence.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/imagenes/persistent.png)
+![Persistence.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/images/persistent.png)
 
 Retroactive Data structures allow to add, remove, or modify operations that were performed in the past, and the structure will automatically update to reflect these changes. In this case, we allow that by storing separatedly different actions and get the values combining these.
 
@@ -22,7 +22,7 @@ Disclaimer: this was made purely to have fun and isn't complete.
 - Get the size of the structure at the current time.
 - Undo a operation at a given time. (if it is possible) WIP
 
-![implementation.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/imagenes/curr_implementation.png)
+![implementation.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/images/curr_implementation.png)
 
 To make this possible, we use a OST as a base to work, in this case the OST is a RB Tree, but can be any tree, The OST is modified according to it's use:
 - adding, this OST only contains the operation of adding an element at a given index, stores index and value.
@@ -38,9 +38,9 @@ To make this possible, we use a OST as a base to work, in this case the OST is a
 
 ## some questionable benchmarks
 
-![push.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/imagenes/push.png)
+![push.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/images/push.png)
 
-![pop.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/imagenes/pop.png)
+![pop.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/images/pop.png)
 
 push seems linear, pop may be N*log(N)?
 
@@ -48,4 +48,4 @@ push seems linear, pop may be N*log(N)?
 
 before coding, I made a notebook to try to understand the problem, here it is
 
-![implementation.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/imagenes/notes.png)
+![implementation.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/images/notes.png)
