@@ -1,9 +1,9 @@
-import osts_datetime as ost
+import modified_ost as ost
 from datetime import datetime
 
 class queue:
     def __init__(self, time: datetime, value): 
-        self.adding = ost.node_for_inserts(time, value) 
+        self.adding = ost.node_insert(time, value) 
         self.deleting = None 
         self.consistency = ost.node_consistency(time, 1) 
         
@@ -13,14 +13,14 @@ class queue:
             print("Time already present")
             return
         
-        aux_node = ost.node_for_inserts(newdata=time, queue=value)
+        aux_node = ost.node_insert(newdata=time, queue=value)
         
         self.consistency.add_node(ost.node_consistency(time, 1))
         return self.adding.add_node(aux_node)
     
     def pop(self, time: datetime): 
         if self.deleting is None:
-            self.deleting = ost.node_for_delete(time) 
+            self.deleting = ost.node_delete(time) 
             self.consistency.add_node(ost.node_consistency(time, -1))
             return self.front(time)
         else:
@@ -28,7 +28,7 @@ class queue:
             if not flag:
                 return "error, can't be made"
         
-            self.deleting.add_node(ost.node_for_delete(newdata=time))
+            self.deleting.add_node(ost.node_delete(newdata=time))
 
             return self.front(time)
     

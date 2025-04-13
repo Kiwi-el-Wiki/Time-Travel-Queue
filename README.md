@@ -2,11 +2,22 @@
 
 The Time Travel problem in the context of data structures refers to the ability to modify and query the state of a data structure at different points in time, both in the past and in the present. This problem is addressed by retroactive data structures, which allow operations to be performed that affect not only the current state of the structure, but also its history of operations.
 
+### Persistence
+A persistent data structure maintains previous versions of itself after updates, enabling queries on any historical state without affecting the current one. This is typically achieved through techniques such as path copying or structural sharing, where only the modified portions of the structure are duplicated while unmodified parts are reused.
+
 Persistence looks like:
 
 ![Persistence.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/images/persistent.png)
 
-Retroactive Data structures allow to add, remove, or modify operations that were performed in the past, and the structure will automatically update to reflect these changes. In this case, we allow that by storing separatedly different actions and get the values combining these.
+### Retroactivity
+
+A retroactive data structure extends the concept of persistence by allowing insertion, deletion, or modification of operations at any point in the timeline, not just at the end. When a past operation is changed, the data structure recalculates the current state as if the new operation had always existed, propagating the effects forward through time, there are two types of retroactivity:
+
+-**Partially retroactive**: allows modification of past operations, but only current queries are supported.
+
+-**Fully retroactive**: allows both modification and querying at any point in time.
+
+Retroactive data is a little more complex to show in a figure, better see videos in "Current Implementation"
 
 ## Current implementation (WIP)
 
@@ -42,10 +53,8 @@ To make this possible, we use a OST as a base to work, in this case the OST is a
 
 ![pop.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/images/pop.png)
 
-push seems linear, pop may be N*log(N)?
-
 ## some scribble notes
 
-before coding, I made a notebook to try to understand the problem, here it is
+before coding, I made a notebook to try to understand the problem, here it is if it may help understanding
 
 ![implementation.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/images/notes.png)
