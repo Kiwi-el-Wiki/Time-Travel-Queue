@@ -95,6 +95,37 @@ class queue:
             return
 
 
+class queue_linked(queue):
+    def __init__(self, time: datetime, value): 
+        self.adding = ost.node_insert(time, value) 
+        self.deleting = None 
+        self.consistency = ost.node_consistency_linked(time, 1) 
+    
+    def push(self, time: datetime, value): 
+        flag = self.consistency.search(time)
+        if flag:
+            print("Time already present")
+            return
+        
+        aux_node = ost.node_insert(newdata=time, queue=value)
+        
+        self.consistency.add_node(ost.node_consistency_linked(time, 1))
+        return self.adding.add_node(aux_node)
+    
+    def pop(self, time: datetime): 
+        if self.deleting is None:
+            self.deleting = ost.node_delete(time) 
+            self.consistency.add_node(ost.node_consistency_linked(time, -1))
+            return self.front(time)
+        else:
+            flag = self.consistency.add_node(ost.node_consistency_linked(time, -1)) 
+            if not flag:
+                return "error, can't be made"
+        
+            self.deleting.add_node(ost.node_delete(newdata=time))
+
+            return self.front(time)
+
 def show_info(q , datetime_r, value):
     q.push(datetime_r, value)
     q.print(datetime_r)

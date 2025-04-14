@@ -15,6 +15,12 @@ class data_consistency(data):
         self.prefix = prefix
         # prefix is a value of -1, 0 or 1, -1 for deletion, 0 for inserts that are currently in the queue, 1 for inserts that are no more in the queue
 
+class data_consistency_linked(data_consistency):
+    def __init__(self, value: datetime, prefix=int):  # value is the time, queue is the value
+        super().__init__(value, prefix)
+        self.prev = None  # double linked list, prev is the previous node in the tree
+        self.next = None  # next is the next node in the tree
+
 class RBT_inserts(RBT):
     def return_queue(self, rank: int):
         curr_node = self.root
@@ -54,6 +60,53 @@ class RBT_consistency(RBT):
             # if we already make all the inorder and node value stills be bigger, we are at curr time
             return False
         return True
+    
+    def _print_inorder_recursive(self, curr_node):
+        if curr_node:
+            self._print_inorder_recursive(curr_node.left)
+            print("(", curr_node.value, ",", curr_node.prefix, ")" ,end = " ; ")
+            self._print_inorder_recursive(curr_node.right)
+
+class RBT_consistency_linked(RBT):
+    def add_node(self, new_node):
+        if self.root is None:
+            new_node.color = False
+            self.root = new_node
+            self.head = self.tail = new_node
+        else:
+            inserted_node = self._add_node_iterative(new_node)
+            self._fix_tree(inserted_node)
+
+            self._insert_into_linked_list(inserted_node)
+
+    def _insert_into_linked_list(self, new_node):
+        curr = self.head
+        prev = None
+        while curr and curr.value < new_node.value:
+            prev = curr
+            curr = curr.next
+
+        new_node.prev = prev
+        new_node.next = curr
+        if prev:
+            prev.next = new_node
+        else:
+            self.head = new_node
+        if curr:
+            curr.prev = new_node
+        else:
+            self.tail = new_node
+
+    def check_if_possible(self, node): 
+        curr_sum = 0
+        curr = self.head
+        while curr:
+            curr_sum += curr.prefix
+            if curr_sum <= 0 and curr.value >= node.value:
+                return False
+            curr = curr.next
+        return not (curr_sum == 0 and node.value > self.tail.value)
+
     
     def _print_inorder_recursive(self, curr_node):
         if curr_node:
@@ -110,6 +163,44 @@ class node_consistency(node):
     def delete(self, value: datetime, prefix: int):
         if prefix == 1: # should check for consistency, is like adding a deletion
             aux = self.tree.check_if_possible(data_consistency(value, -1))
+            if aux:
+                self.tree.delete(value)
+                return True
+            else:
+                print("Error, can't be made")
+                return False
+            
+        elif prefix == -1:
+            self.tree.delete(value)
+            return True
+        else:
+            print("Error, prefix must be 1 or -1")
+            return False
+
+class node_consistency_linked(node):
+    def __init__(self, newdata: datetime, prefix: int):  # newdata is the time
+        self.tree = RBT_consistency()
+        if newdata is not None:
+            self.tree.add_node(data_consistency_linked(value=newdata, prefix=prefix))
+
+    def add_node(self, new_node: 'node_consistency'):
+        if new_node is not None and new_node.tree.root is not None:
+            if new_node.tree.root.prefix >= 0:  # if insert, just add
+                self.tree.add_node(data_consistency_linked(value=new_node.tree.root.value, prefix=new_node.tree.root.prefix))
+                return True
+            else:  # if delete, check if it's possible before
+                aux = self.tree.check_if_possible(new_node.tree.root)
+                if aux:
+                    self.tree.add_node(data_consistency_linked(value=new_node.tree.root.value, prefix=new_node.tree.root.prefix))
+                    return True
+                return False
+    
+    def check_if_possible(self, node):
+        return self.tree.check_if_possible(node)
+    
+    def delete(self, value: datetime, prefix: int):
+        if prefix == 1: # should check for consistency, is like adding a deletion
+            aux = self.tree.check_if_possible(data_consistency_linked(value, -1))
             if aux:
                 self.tree.delete(value)
                 return True

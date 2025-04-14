@@ -38,6 +38,8 @@ To make this possible, we use a OST as a base to work, in this case the OST is a
 - "deleting" Tree: this OST only contains the operation of deleting an element at a given index, only *stores the index* as it exists.
 - "consistency" Tree: this OST contains all the operations of adding and deleting elements, and is used to check and validate consistency of the structure over time, *stores index and prefix* (+1 for adding and -1 for deleting)
 
+There's also another implementation of the retroactive queue which is based on the same principle, but also uses a linked list in it's nodes, so we use it for the inorder traversal, we can compare how much we gain from using it in benchmarks.
+
 ### Overview:
 
 ![implementation.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/images/curr_implementation.png)
@@ -50,7 +52,7 @@ Benchmarks are made in **benchmark.ipynb** (obviously), for this file to work al
 
 ![pop.](https://github.com/elpolloconmayo/Time-Travel-Queue/blob/main/images/pop.png)
 
-Implementation was made thinking it would be log in both cases, but benchmarks show log or linear for push and maybe linear-logarithmic for pop, which isn't bad for a retroactive data structure but there's pretty much room for improvement.
+Implementation was made thinking it would be log in all cases, but benchmarks show log or linear for push and maybe linear-logarithmic for pop, which isn't bad for a retroactive data structure but there's pretty much room for improvement.
 
 Pop gets greatly benefited with ordered data (probably has something to do with the inorder traversal search), push suffers when data is ordered.
 
