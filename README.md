@@ -52,7 +52,7 @@ Benchmarks are made in **benchmark.ipynb** (obviously), for this file to work al
 
 Implementation was made thinking it would be log in both cases, but benchmarks show log or linear for push and maybe linear-logarithmic for pop, which isn't bad for a retroactive data structure but there's pretty much room for improvement.
 
-Pop gets greatly benefited with ordered data (probably has something to do with the inorder traversal search), push suffers when data is ordered
+Pop gets greatly benefited with ordered data (probably has something to do with the inorder traversal search), push suffers when data is ordered.
 
 As for undo and front functions, there's no benchmark right now.
 
